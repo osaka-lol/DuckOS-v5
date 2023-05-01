@@ -36,18 +36,18 @@ $(document).ready(function() {
 
             const $window = $(this).closest('.appwindow');
             $('body').on('mousedown', '.appwindow', function() {
-    const $clickedWindow = $(this);
-    $clickedWindow.css('z-index', zIndexCounter++);
+                const $clickedWindow = $(this);
+                $clickedWindow.css('z-index', zIndexCounter++);
 
-    // Add transparent overlay to all windows except the clicked one
-    $('.appwindow').not($clickedWindow).each(function() {
-        const $window = $(this);
-        if (!$window.find('.iframe-overlay').length) {
-            $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
-        }
-    });
-    $clickedWindow.find('.iframe-overlay').remove();
-});
+                // Add transparent overlay to all windows except the clicked one
+                $('.appwindow').not($clickedWindow).each(function() {
+                    const $window = $(this);
+                    if (!$window.find('.iframe-overlay').length) {
+                        $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
+                    }
+                });
+                $clickedWindow.find('.iframe-overlay').remove();
+            });
 
 
             this.style.border = 'none';
@@ -58,8 +58,30 @@ $(document).ready(function() {
         $('body').append($window);
 
         $window.draggable({
-            handle: '.toolbar, iframe',
-            scroll: false,
+  handle: '.toolbar',
+  scroll: false,
+  drag: function(event, ui) {
+    if (ui.position.top < 0) {
+      ui.position.top = 0;
+    }
+  },
+  start: function(event, ui) {
+  if ($window.hasClass('maximized')) {
+    return false; // prevent dragging while maximized
+  }
+  $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
+},
+
+  stop: function(event, ui) {
+    const $window = $(this);
+    $window.find('.iframe-overlay').remove();
+  }
+});
+
+        $window.resizable({
+            handles: 'all',
+            minWidth: 200, // Minimum width of 100px
+            minHeight: 100, // Minimum height of 50px
             start: function() {
                 $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
             },
@@ -67,6 +89,8 @@ $(document).ready(function() {
                 $window.find('.iframe-overlay').remove();
             }
         });
+
+
 
 
         $window.resizable({
@@ -117,43 +141,53 @@ $(document).ready(function() {
         const isMaximized = $window.hasClass('maximized');
 
         if (isMaximized) {
+            // Restore the window size
             $window.removeClass('maximized');
             $window.css({
                 top: $window.data('original-top'),
                 left: $window.data('original-left'),
                 width: $window.data('original-width'),
-                height: $window.data('original-height'),
+                height: $window.data('original-height')
             });
+            $window.css('z-index', zIndexCounter++); // Set the z-index after restoring the window
         } else {
+            // Maximize the window
             $window.addClass('maximized');
             $window.data({
                 'original-top': $window.css('top'),
                 'original-left': $window.css('left'),
                 'original-width': $window.css('width'),
-                'original-height': $window.css('height'),
+                'original-height': $window.css('height')
             });
             $window.css({
                 top: 0,
                 left: 0,
-                width: '100%',
-                height: '100%',
+                width: '100vw',
+                height: '100vh',
+                zIndex: '99999999999999' // Removed the line for incrementing the z-index
             });
         }
     });
 
 
 
+
     $('body').on('mousedown', '.appwindow', function() {
         const $clickedWindow = $(this);
-        $clickedWindow.css('z-index', zIndexCounter++);
 
-        // Add transparent overlay to all windows except the clicked one
-        $('.appwindow').not($clickedWindow).each(function() {
-            const $window = $(this);
-            if (!$window.find('.iframe-overlay').length) {
-                $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
-            }
-        });
+        // Do not change the z-index if the window is maximized
+        if (!$clickedWindow.hasClass('maximized')) {
+            $clickedWindow.css('z-index', zIndexCounter++);
+
+            // Add transparent overlay to all windows except the clicked one
+            $('.appwindow').not($clickedWindow).each(function() {
+                const $window = $(this);
+                if (!$window.find('.iframe-overlay').length) {
+                    $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
+                }
+            });
+        }
+
         $clickedWindow.find('.iframe-overlay').remove();
     });
 

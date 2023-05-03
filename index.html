@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>DuckOS</title>
+  <title>DuckOS Landing 🚀</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=DM+Sans&family=Lexend&display=swap');
@@ -18,6 +18,7 @@
       justify-content: center;
       height: 100vh;
       font-family: "DM Sans";
+      user-select: none;
     
       margin: 0;
       padding: 0;
@@ -34,6 +35,7 @@
       padding: 0rem clamp(1rem, 2vw, 3rem);
       border-radius: clamp(0.4rem, 0.75vw, 1rem);
       user-select: none;
+      z-index: 9999999999999999999;
       
     }
     
@@ -56,6 +58,7 @@
       transition: 0.3s;
       border-radius: 15px;
       cursor: pointer;
+      z-index: 999999999999999;
     }
 
     .selectbtn:hover {
@@ -63,7 +66,8 @@
       border-radius: 3px;
     }
     section {
-      flex-direction: column
+      flex-direction: column;
+      z-index: 9999999999999999999;
     }
     #particles-js canvas {
   display: block;
@@ -80,7 +84,8 @@
   height: 100%;
   position: fixed;
   top: 0;
-  left: 0
+  left: 0;
+  z-index: 1;
 }
 .alienhub {
   margin-top: 30px;

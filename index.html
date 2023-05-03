@@ -1,124 +1,187 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>DuckOS v5</title>
-    <meta name="description" content="DuckOS. An revolutionary new Operating System (Newer than DuckOS!) that can run fully from your browser. Let's change the world together, starting from Removing Internet Censorship" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="/system/lib/main.css" rel="stylesheet" type="text/css" />
-    <link href="/system/lib/window.css" rel="stylesheet" type="text/css" />
-    <link href="/system/lib/settings.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/system/lib/stats.css">
-    <script src="/system/lib/script.js"></script>
-    <script src="/system/lib/settings.js"></script>
-    <script src="/system/lib/alert.js"></script>
-    <script src="/system/lib/search.js"></script>
-  </head>
-  <body>
-    <div class="loading-page">
-      <img src="/system/media/loading.gif" alt="Loading..." />
-    </div>
-    <div id="topbar">
-      <span id="settingsbtn" class="animate__animated animate__fadeInDown animate__delay-3s">
-        <i class="fa-solid fa-gear"></i>
-      </span>
-      <span onclick="toggleTimeFormat()" class="animate__animated animate__backInDown animate__delay-3s" id="time" class="taskbar_time"></span>
-      <span onclick="toggleFullscreen()" class="animate__animated animate__fadeInDown animate__delay-3s" id="fullscreenbtn">
-        <i class="fa-solid fa-expand"></i>
-      </span>
-    </div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Complex Math</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=DM+Sans&family=Lexend&display=swap');
+
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: "DM Sans";
+    
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    #title {
+      font-family: 'Lexend';
+      font-size: 50px;
+      color: white;
+      padding: 0rem clamp(1rem, 2vw, 3rem);
+      border-radius: clamp(0.4rem, 0.75vw, 1rem);
+      user-select: none;
+      
+    }
+    
+    #title:hover {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+    }
+
+    .selectbtn {
+      background-color: inherit;
+      width: 300px;
+      height: 28px;
+      border: solid 2px white;
+      font-family: "DM Sans";
+      font-size: 16px;
+      color: white;
+      padding: 8px 0px;
+      box-sizing: content-box;
+      transition: 0.3s;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+
+    .selectbtn:hover {
+      scale: 1.05;
+      border-radius: 3px;
+    }
+    section {
+      flex-direction: column
+    }
+    #particles-js canvas {
+  display: block;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
+  transition: opacity .8s ease, transform 1.4s ease
+}
+
+#particles-js {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -10;
+  top: 0;
+  left: 0
+}
+.alienhub {
+  margin-top: 30px;
+}
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+  <script src="js/particles.min.js"></script>
+  <script src="js/particles.js"></script>
+  
+  <section>
+    <h1 data-value="Welcome to DuckOS" id="title">Welcome to DuckOS</h1>
+    <h2>Copied Landing Page from <a href="https://discord.gg/M3J9EmuwBm">Complex</a></h2><br>
+    <button class="selectbtn" onclick="play('/directories/main.html')" style="margin-right: 15px">Open in about:blank</button>
+    <a href="/directories/main.html">
+    <button class="selectbtn" href="/directories/main.html">I'll take my chances</button></a><br>
     <br>
-    <br>
-    <div id="taskbar">
-      <div id="apps"></div>
-      <script src="config.js"></script>
-      <script src="/system/lib/window.js"></script>
-    </div>
-    <div id="settingspage">
-      <h1 align="center">Settings</h1>
-      <p align="center">Customize DuckOS v5 to your will!</p>
-      <hr class="settingshr">
-      <h2 align="center">Change Background Image</h2>
-      <div>
-        <button align="center" class="wallpaperbtn" onclick="changeBackgroundefualt()">
-          <img onclick="selectedimg(this)" class="wallpaperselect" src="/system/media/background.jpg">
-        </button>
-        <button align="center" class="wallpaperbtn" onclick="changeBackgroundmeow()">
-          <img onclick="selectedimg(this)" class="wallpaperselect" src="https://cdn.discordapp.com/attachments/1095511008698704033/1095511342527557762/838-transformed.jpeg">
-        </button>
-        <button align="center" class="wallpaperbtn" onclick="changeBackgroundmeow1()">
-          <img onclick="selectedimg(this)" class="wallpaperselect" src="https://cdn.discordapp.com/attachments/1095511008698704033/1095511342972162180/CbV7Rn7-earth-desktop-wallpaper.jpg">
-        </button>
-        <button align="center" class="wallpaperbtn" onclick="changeBackgroundbeefy()">
-          <img onclick="selectedimg(this)" class="wallpaperselect" src="https://cdn.discordapp.com/attachments/1095511008698704033/1095737363503796264/Screenshot_2023-04-11_6.png">
-        </button>
-      </div>
-      <input align="center" class="uploadwall" type="file" id="uploadImage" accept="image/*">
-      <button align="center" class="imgupload" onclick="uploadBackground()">Upload!</button>
-      <br>
-      <br>
-      <hr class="settingshr">
-      <h2 align="center">DuckOS Themes</h2>
-      <p align="center">Change what theme you want for DuckOS here!</p>
-      <h4>Sorry! Themes are coming soon.</h4>
-      <br>
-    </div>
-    <span id="statscenterbtn" class="animate__animated animate__backInDown animate__delay-3s"><i class="fa-solid fa-envelope"></i></span>
-	<div id="statscenter">
-		<h1>Status/Notification Center</h1>
-    <p>The most useful thing ever to exist on a WebOS...</p>
     <hr class="statshr">
     <br>
-    <script>
-        (function(d, s, id) {
-            if (d.getElementById(id)) {
-                if (window.__TOMORROW__) {
-                    window.__TOMORROW__.renderWidget();
-                }
-                return;
-            }
-            const fjs = d.getElementsByTagName(s)[0];
-            const js = d.createElement(s);
-            js.id = id;
-            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+    <h1>AD</h1>
+    <p>Official Partner: Alienhub. Get 20% off using the code skyhaxlibrary20</p>
+    <iframe src="https://hub.alienhub.xyz/show?utm_medium=complex" scrolling="no" width="450" height="150" frameborder="0" class="alienhub" left="50%" margin="20px"></iframe>
+    <p>Stop internet censorship with Alienhub - the ultimate unblocking solution.</p>
+  </section>
+  
+  <!-- talking area
+  -->
+  
+  
+  <script>  
 
-            fjs.parentNode.insertBefore(js, fjs);
-        })(document, 'script', 'tomorrow-sdk');
-        </script>
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        <div class="tomorrow"
-           data-location-id=""
-           data-language="EN"
-           data-unit-system="METRIC"
-           data-skin="dark"
-           data-widget-type="upcoming"
-           style="padding-bottom:22px;position:relative;"
-        >
-          <a
-            href="https://www.tomorrow.io/weather-api/"
-            rel="nofollow noopener noreferrer"
-            target="_blank"
-            style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
-          >
-            <img
-              alt="Powered by the Tomorrow.io Weather API"
-              src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
-              width="250"
-              height="18"
-            />
-          </a>
-        </div>
-    <br>
-    <p>This project is sponsored by...</p>
-    <iframe src="https://hub.alienhub.xyz/show?utm_medium=complex" scrolling="no" width="450" height="150" frameborder="0" class="alienhub" left="50%" margin-top="20px"></iframe>
-    <p>Respect! End internet censorship now by buying Alienhub.</p>
-	</div>
-    <script src="/system/lib/stats.js"></script>
-    <script src="/system/lib/autohide.js"></script>
-  </body>
+let interval = null;
+
+document.querySelector("#title").onmouseover = event => {  
+  let iteration = 0;
+  
+  clearInterval(interval);
+  
+  interval = setInterval(() => {
+    event.target.innerText = event.target.innerText
+      .split("")
+      .map((letter, index) => {
+        if(index < iteration) {
+          return event.target.dataset.value[index];
+        }
+      
+        return letters[Math.floor(Math.random() * 26)]
+      })
+      .join("");
+    
+    if(iteration >= event.target.dataset.value.length){ 
+      clearInterval(interval);
+    }
+    
+    iteration += 1 / 3;
+  }, 30);
+}
+
+fetch('/data/splashtexts.json')
+  .then(res => res.json())
+  .then(data => {
+    document.querySelector("#splash").innerHTML = data.splashtexts[Math.floor(Math.random() * data.splashtexts.length)];
+  })
+
+  </script>
+  <script>
+    setTimeout(function() {
+    document.getElementById('loader').classList.add('hide');
+    document.body.style.overflow = 'auto';
+    setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+    }, 100);
+}, 1000);
+
+fetch('games.json').then(response => response.json()).then(games => {
+    games.forEach(game => {
+        document.getElementById('games').innerHTML += `<div class="item" style="background: url('${game[2]}') 0% 0% / cover;" onclick="play('${game[3]}')"></div>`;
+    });
+});
+
+function play(path) {
+    var url = window.location.origin + path;
+    var newWindow = window.open("about:blank", "_blank");
+    if (newWindow != null) {
+      var newContent = document.createElement("iframe");
+      newContent.src = url;
+      newContent.style.width = "100vw";
+      newContent.style.height = "100vh";
+      newContent.style.border = "none";
+      newContent.style.position = "absolute";
+      newContent.style.top = "0";
+      newContent.style.left = "0";
+      newWindow.document.body.appendChild(newContent);
+    }
+  }  
+  </script>
+</body>
+
 </html>

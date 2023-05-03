@@ -2,25 +2,26 @@ $(document).ready(function() {
     let zIndexCounter = 1;
 
     const createIFrameWindow = (config) => {
-        const {
-            iframeSrc,
-            defaultWidth,
-            defaultHeight,
-            windowTitle
-        } = config;
-        const $window = $(`
-    <div class="appwindow" id="appwindow-${config.id}" style="width: ${defaultWidth}px; height: ${defaultHeight}px; top: calc(50% - ${defaultHeight/2}px); left: calc(50% - ${defaultWidth/2}px)">
-      <div class="toolbar">
-        <h4 class="window-title">${windowTitle}</h4>
-        <div>
-          <button class="minimize-btn">-</button>
-          <button class="maximize-btn">+</button>
-          <button class="close-btn">x</button>
+    const {
+      iframeSrc,
+      defaultWidth,
+      defaultHeight,
+      windowTitle
+    } = config;
+
+    const $window = $(`
+      <div class="appwindow" id="appwindow-${config.id}" style="width: ${defaultWidth}%; height: ${defaultHeight}%; top: calc(50% - ${defaultHeight / 2}%); left: calc(50% - ${defaultWidth / 2}%);">
+        <div class="toolbar">
+          <h4 class="window-title">${windowTitle}</h4>
+          <div>
+            <button class="minimize-btn">-</button>
+            <button class="maximize-btn">+</button>
+            <button class="close-btn">x</button>
+          </div>
         </div>
+        <iframe src="${iframeSrc}" class="appframe" frameborder="0" style="width: 100%; height: calc(100% - 28px);"></iframe>
       </div>
-      <iframe src="${iframeSrc}" class="appframe" frameborder="0" style="width: 100%; height: calc(100% - 28px);"></iframe>
-    </div>
-  `);
+    `);
         const $closeButton = $window.find('.close-btn');
         $closeButton.on('click', function() {
             $window.remove();
@@ -79,16 +80,20 @@ $(document).ready(function() {
 });
 
         $window.resizable({
-            handles: 'all',
-            minWidth: 200, // Minimum width of 100px
-            minHeight: 100, // Minimum height of 50px
-            start: function() {
-                $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
-            },
-            stop: function() {
-                $window.find('.iframe-overlay').remove();
-            }
-        });
+  handles: 'all',
+  minWidth: 200,
+  minHeight: 100,
+  start: function() {
+    if ($window.hasClass('maximized')) {
+      return false; // disable resizing when window is maximized
+    }
+    $window.append('<div class="iframe-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 28px); background-color: transparent;"></div>');
+  },
+  stop: function() {
+    $window.find('.iframe-overlay').remove();
+  }
+});
+
 
 
 
@@ -108,21 +113,26 @@ $(document).ready(function() {
 
 
     const createButton = (buttonConfig) => {
-        const buttonText = buttonConfig.imgSrc ? '' : buttonConfig.buttonText;
-        const $button = $(`<button id="${buttonConfig.id}" class="buttondefault ${buttonConfig.id}">
-                          ${buttonConfig.imgSrc ? `<img src="${buttonConfig.imgSrc}" alt="" style="width: 20px; height: 20px;">` : ''}
-                          ${buttonText}
-                        </button>`);
-        $button.on('click', function() {
-            const $existingWindow = $(`#appwindow-${buttonConfig.id}`);
-            if ($existingWindow.length) {
-                $existingWindow.show();
-            } else {
-                createIFrameWindow(buttonConfig);
-            }
-        });
-        return $button;
-    };
+  const buttonText = buttonConfig.imgSrc ? '' : buttonConfig.buttonText;
+  const $button = $(`<button id="${buttonConfig.id}" class="buttondefault ${buttonConfig.id}">
+                    ${buttonConfig.imgSrc ? `<img src="${buttonConfig.imgSrc}" alt="" style="width: 20px; height: 20px;">` : ''}
+                    ${buttonText}
+                  </button>`);
+
+  if (buttonConfig.onStart) { // check if onStart is true
+    createIFrameWindow(buttonConfig); // create iframe window
+  }
+
+  $button.on('click', function() {
+    const $existingWindow = $(`#appwindow-${buttonConfig.id}`);
+    if ($existingWindow.length) {
+      $existingWindow.show();
+    } else {
+      createIFrameWindow(buttonConfig);
+    }
+  });
+  return $button;
+};
 
 
 

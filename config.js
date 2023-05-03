@@ -1,10 +1,11 @@
+// NEW UPDATE: Now uses % instead of width ;) good luck lmao
 const config = {
   buttons: [
     {
       id: 'rammerhead-browser',
       iframeSrc: 'https://everyone.isageek.net/',
-      defaultWidth: 800,
-      defaultHeight: 600,
+      defaultWidth: 50,
+      defaultHeight: 80,
       buttonText: 'Rammerhead',
       windowTitle: 'Rammerhead Browser',
       imgSrc: '/system/media/rammerhead_icon.png'
@@ -12,20 +13,25 @@ const config = {
     {
       id: 'meowzies-adventure',
       iframeSrc: '/apps/meowiegames/meowziesadventurethree/index.html',
-      defaultWidth: 600,
-      defaultHeight: 400,
+      defaultWidth: 30,
+      defaultHeight: 45,
       buttonText: 'Meowzies Adventure 3',
       windowTitle: 'Meowzies Adventure 3',
-      imgSrc: '/apps/meowiegames/meowziesadventurethree/icon.png'
+      imgSrc: '/apps/meowiegames/meowziesadventurethree/icon.png',
+      onStart: false
     },
     {
-      id: 'bloxd',
-      iframeSrc: 'https://bloxd.io',
-      defaultWidth: 900,
-      defaultHeight: 600,
-      buttonText: 'Bloxd.io - For the keeds at school',
-      windowTitle: 'Bloxd.io',
+      id: 'about',
+      iframeSrc: '/apps/about/index.html',
+      defaultWidth: 90,
+      defaultHeight: 80,
+      buttonText: 'About Page',
+      windowTitle: 'Learn about DuckOS!',
       imgSrc: '/system/media/bloxd_icon.png'
     }
   ]
 };
+config.buttons.forEach(buttonConfig => {
+  const $button = createButton(buttonConfig);
+  $('#apps').append($button);
+});
